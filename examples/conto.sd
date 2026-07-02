@@ -1,0 +1,96 @@
+citak("==============================================");
+citak("   WILUJENG SUMPING DI SUNDA SCRIPT (v1.0.0)  ");
+citak("==============================================");
+
+// 1. VARIABEL & TIPE DATA PRIMINTIF
+simpen nami_toko = "Toko Sinar Jaya";   // String
+simpen diskon_max = 25.5;               // Float
+simpen toko_buka = leres;               // Boolean
+simpen cabang_anyar = kosong;           // Null
+
+citak("\n[+] Muka Toko: " + nami_toko);
+citak("Status Buka: " + toko_buka);
+
+// 2. STRUKTUR DATA (OBJEK & ARRAY)
+simpen pamilik = {
+    nami: "Mang Oleh",
+    umur: 45,
+    alamat: "Bandung"
+};
+
+simpen daptar_harga = [15000, 25000, 5000, 45000, 10000];
+
+// 3. FUNGSI (PANCEN) & PERCABANGAN (LOGIKA)
+pancen etang_diskon(harga) {
+    simpen harga_net = harga;
+    
+    upami (harga >= 40000) {
+        harga_net = harga - (harga * 20 / 100);
+    } sanes upami (harga >= 20000) {
+        harga_net = harga - (harga * 10 / 100);
+    } sanes {
+        harga_net = harga;
+    }
+    
+    wangsul harga_net;
+}
+
+// 4. PERULANGAN BERSYARAT (WHILE LOOP)
+citak("\n[+] Ngitung Total Aset Toko (Nganggo 'ngulang'):");
+simpen i = 0;
+simpen total_aset = 0;
+
+ngulang (i < daptar_harga.panjang()) {
+    total_aset = total_aset + daptar_harga[i];
+    i = i + 1;
+}
+citak("Total aset sateuacan diskon: Rp " + total_aset.janten_teks());
+
+// 5. PERULANGAN TERSTRUKTUR (FOR LOOP) & KONTROL ALUR
+citak("\n[+] Evaluasi Harga Barang (Nganggo 'pikeun'):");
+pikeun (simpen j = 0; j < daptar_harga.panjang(); j = j + 1) {
+    simpen harga_asli = daptar_harga[j];
+    
+    upami (harga_asli == 5000) {
+        citak("- Harga Rp 5000 mirah teuing, diliwat.");
+        lajeungkeun;
+    }
+    
+    simpen harga_diskon = etang_diskon(harga_asli);
+    citak("- Harga: Rp " + harga_asli.janten_teks() + " -> Janten: Rp " + harga_diskon.janten_teks());
+    
+    upami (harga_asli == 45000) {
+        citak("  ! Mendakan barang paling awis, ngeureunkeun evaluasi.");
+        liren;
+    }
+}
+
+// 6. METODE BAWAAN (HIGHER-ORDER FUNCTIONS)
+citak("\n[+] Nganggo Fungsi Tingkat Luhur (Saring & Petakeun):");
+
+simpen barang_awis = daptar_harga.saring(pancen(h) {
+    wangsul h > 10000;
+});
+
+simpen label_barang = barang_awis.petakeun(pancen(h) {
+    wangsul "Rp " + h.janten_teks() + ",-";
+});
+
+citak("Daptar barang nu hargana luhureun Rp 10.000:");
+label_barang.unggal(pancen(label) {
+    citak(" -> " + label);
+});
+
+// 7. MANIPULASI OBJEK & METODE BAWAAN STRUKTUR DATA
+citak("\n[+] Manipulasi Kamus (Objek) sareng Daptar:");
+pamilik.status = "Aktif"; 
+citak("Nami Pamilik: " + pamilik.nami);
+citak("Daptar Konci Objek Pamilik: " + pamilik.konci().gabungkeun(", "));
+
+daptar_harga.tambih_pengker(60000);
+citak("Daptar harga saatos ditambihan barang enggal: ");
+citak(daptar_harga);
+
+citak("\n============================================");
+citak("           PROGRAM RENGSE DIEKSEKUSI          ");
+citak("==============================================");
